@@ -6,13 +6,14 @@ import _ from 'lodash';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "./App.css";
 
+// dropdown select options 
 const options = [
   { label: "Viewers By Network", value: "network" },
   { label: "Viewers By genre", value: "genre" },
   { label: "Viewers By Hometown", value: "hometown" }
 ];
 
-
+// group by network and make it an array, then add all viewers for each network
 const networkarray = _(program)
   .groupBy('network')
   .map((network, id) => ({
@@ -21,7 +22,7 @@ const networkarray = _(program)
   }))
   .value()
 
-  
+// assign variable to number of viewers (repetitive, has to be a better way to structure this)
 const cbsarray = networkarray[0];
 const cbsviewers = cbsarray.viewers;
 
@@ -31,6 +32,7 @@ const abcviewers = abcarray.viewers;
 const syfyarray = networkarray[2];
 const syfyviewers = syfyarray.viewers;
 
+// group by genre and make it an array, then add all viewers for each genre
 const genrearray = _(program)
   .groupBy('genre')
   .map((genre, id) => ({
@@ -39,8 +41,7 @@ const genrearray = _(program)
   }))
   .value()
 
-  console.log(genrearray);
-
+// assign variable to number of viewers (repetitive, has to be a better way to structure this)
 const sportsarray = genrearray[0];
 const sportsviewers = sportsarray.viewers;
 
@@ -50,6 +51,7 @@ const mysteryviewers = mysteryarray.viewers;
 const sfarray = genrearray[2];
 const sfviewers = sfarray.viewers;
 
+// group by hometown and make it an array, then add all viewers for each hometown
 const hometownarray = _(program)
   .groupBy('hometown')
   .map((hometown, id) => ({
@@ -58,11 +60,9 @@ const hometownarray = _(program)
   }))
   .value()
 
-  console.log(hometownarray);
-
+// assign variable to number of viewers (repetitive, has to be a better way to structure this)
 const pittarray = hometownarray[0];
 const pittviewers = pittarray.viewers;
-console.log(pittviewers);
 
 const newarray = hometownarray[1];
 const newviewers = newarray.viewers;
@@ -73,6 +73,7 @@ const bosviewers = bosarray.viewers;
 const clevarray = hometownarray[3];
 const clevviewers = clevarray.viewers;
 
+// switch between different views selected from dropdown
 function requestApi(network) {
   let result;
   switch (network) {
@@ -83,7 +84,7 @@ function requestApi(network) {
           {
             label: "Network Viewship",
             data: [cbsviewers, abcviewers, syfyviewers],
-            backgroundColor: 'red',
+            backgroundColor: '#072f5f',
             borderWidth: 1
           }
         ]
@@ -97,7 +98,7 @@ function requestApi(network) {
           {
             label: "Genre Viewship",
             data: [sportsviewers, mysteryviewers, sfviewers],
-            backgroundColor: 'blue',
+            backgroundColor: '#6495ed',
             borderWidth: 1
           }
         ]
@@ -111,7 +112,7 @@ function requestApi(network) {
             {
               label: "Hometown Viewship",
               data: [pittviewers, newviewers, bosviewers, clevviewers],
-              backgroundColor: 'green',
+              backgroundColor: '#00AEEF',
               borderWidth: 1
             }
           ]
@@ -134,6 +135,7 @@ const defaultNetwork = options[0];
 const defaultData = {};
 
 export default function App() {
+  // useState is a hook to change data
   const [network, setNetwork] = React.useState(defaultNetwork.value);
   const [chartData, setChartData] = useState(defaultData);
 
@@ -185,10 +187,9 @@ export default function App() {
         />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          <h2>Future Heatmap Of Viewers Based On Location</h2>
         </TabPanel>
       </Tabs>
-     
     </div>
   );
 }

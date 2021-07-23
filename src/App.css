@@ -10,5 +10,30 @@
 h1{
   display: flex;
   justify-content: center;
-  padding: 0 0 24px 0;
+  padding: 24px 0;
+  margin: 0;
+}
+
+.tabs li{
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  background-color: #00AEEF;
+  padding: 12px 0;
+  border-radius: .5rem;
+  margin: 0 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.tabs li:hover{
+  background-color: #0093d2;
+}
+
+.tabs ul{
+  display: flex;
+  list-style: none;
+  margin: 0 -6px;
+  padding: 24px 0;
 }
